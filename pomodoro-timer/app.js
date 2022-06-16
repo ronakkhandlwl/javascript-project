@@ -1,47 +1,59 @@
 var gearFlag = false;
+var secondsRef = document.getElementById("seconds");
+var minutesRef = document.getElementById("minutes");
+var startRef = document.getElementById("start");
+
 document.getElementById("gear").addEventListener("click", gear);
 
 function gear() {
     if (gearFlag == true) {
-        gearFlag = false;
-        document.getElementById("seconds").setAttribute('disabled', '');
-        document.getElementById("minutes").setAttribute('disabled', '');
+        secondsRef.setAttribute('disabled', '');
+        minutesRef.setAttribute('disabled', '');
     } else {
-        gearFlag = true;
-        document.getElementById("seconds").removeAttribute('disabled');
-        document.getElementById("minutes").removeAttribute('disabled');
+        secondsRef.removeAttribute('disabled');
+        minutesRef.removeAttribute('disabled');
     }
+    gearFlag = !gearFlag;
 }
 
 var startFlag = true;
-let interval, seconds, minutes;
-document.getElementById("start").addEventListener("click", start);
+var interval, seconds, minutes;
+startRef.addEventListener("click", start);
 
 function start() {
     if (startFlag == true) {
         startFlag = false;
-        document.getElementById("start").innerHTML = "stop";
+        startRef.innerHTML = "stop";
         if (gearFlag == true) gear();
-        seconds = document.getElementById("seconds").value;
-        minutes = document.getElementById("minutes").value;
-        if(seconds>60 || seconds<0) {
-            alert("Value of second should be between 0-60");
-            startFlag = true;
-            document.getElementById("start").innerHTML = "start";
-            document.getElementById("seconds").value = '00';
-        } else if(minutes<0) {
-            alert("Value of minute should be greater than or equal to 0");
-            startFlag = true;
-            document.getElementById("start").innerHTML = "start";
-            document.getElementById("minutes").value = '00';
-        } else {
+        seconds = secondsRef.value;
+        minutes = minutesRef.value;
+        
+        if(isValid())
             interval = setInterval(timer, 1000);
+        else {
+            start();
+            secondsRef.value = '00';
+            minutesRef.value = '00';
+            alert("Invalid time");
         }
     } else {
         startFlag = true;
-        document.getElementById("start").innerHTML = "start";
+        startRef.innerHTML = "start";
         clearInterval(interval);
     }
+}
+
+function isValid() {
+    let secLength = seconds.length, minLength = minutes.length;
+    if(secLength==0 || minLength==0 || secLength>2) return false;
+    for(let i = 0; i < secLength; i++) {
+        if(seconds[i]>'9' || seconds[i]<'0') return false;
+    }
+    for(let i = 0; i < minLength; i++) {
+        if(minutes[i]>'9' || minutes[i]<'0') return false;
+    }
+    if(seconds>60) return false;
+    return true;
 }
 
 function timer() {
@@ -60,9 +72,7 @@ function timer() {
         },100);
         start();
     }
-    if (seconds < 10) document.getElementById("seconds").value = '0' + seconds;
-    else document.getElementById("seconds").value = seconds;
-
-    if (minutes < 10) document.getElementById("minutes").value = minutes;
-    else document.getElementById("minutes").value = minutes;
+    if (seconds < 10) secondsRef.value = '0' + seconds;
+    else secondsRef.value = seconds;
+    minutesRef.value = minutes;
 }
