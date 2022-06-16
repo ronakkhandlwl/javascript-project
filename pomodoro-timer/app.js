@@ -27,8 +27,8 @@ function start() {
         if (gearFlag == true) gear();
         seconds = secondsRef.value;
         minutes = minutesRef.value;
-        
-        if(isValid())
+
+        if (isValid())
             interval = setInterval(timer, 1000);
         else {
             start();
@@ -45,14 +45,14 @@ function start() {
 
 function isValid() {
     let secLength = seconds.length, minLength = minutes.length;
-    if(secLength==0 || minLength==0 || secLength>2) return false;
-    for(let i = 0; i < secLength; i++) {
-        if(seconds[i]>'9' || seconds[i]<'0') return false;
+    if (secLength == 0 || minLength == 0 || secLength > 2) return false;
+    for (let i = 0; i < secLength; i++) {
+        if (seconds[i] > '9' || seconds[i] < '0') return false;
     }
-    for(let i = 0; i < minLength; i++) {
-        if(minutes[i]>'9' || minutes[i]<'0') return false;
+    for (let i = 0; i < minLength; i++) {
+        if (minutes[i] > '9' || minutes[i] < '0') return false;
     }
-    if(seconds>60) return false;
+    if (seconds > 60) return false;
     return true;
 }
 
@@ -66,10 +66,10 @@ function timer() {
         minutes = 0;
         seconds = 0;
         document.getElementById("ring").classList.add("ending");
-        setTimeout(function() {
+        setTimeout(function () {
             alert("Time Over");
             document.getElementById("ring").classList.remove("ending");
-        },100);
+        }, 100);
         start();
     }
     if (seconds < 10) secondsRef.value = '0' + seconds;

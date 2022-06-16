@@ -21,11 +21,11 @@
     <div class="timer">
       <div class="time">
         <div class="minutes">
-          <input id="minutes" type="text" value="00" disabled/>
+          <input id="minutes" type="number" pattern="[0-9]+" value="00" disabled />
         </div>
         <div class="colon">:</div>
         <div class="seconds">
-          <input id="seconds" type="text" value="10" disabled/>
+          <input id="seconds" type="number" value="10" pattern="[0-9]" disabled />
         </div>
       </div>
       <button class="start" id="start">start</button>
