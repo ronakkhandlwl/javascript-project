@@ -1,14 +1,15 @@
 // Variable declarations
-let gearFlag = false, startStopFlag = true, isRingGreen = true;
+let settingsFlag = false, startStopFlag = true, isRingGreen = true;
 let interval, seconds, minutes;
 const secondsRef = document.getElementById("seconds");
 const minutesRef = document.getElementById("minutes");
 const startRef = document.getElementById("start");
 const ringRef = document.getElementById("ring");
+const settingsRef = document.getElementById("settings");
 
 //Functions
-const gear = () => {
-    if (gearFlag == true) {
+const settings = () => {
+    if (settingsFlag == true) {
         secondsRef.setAttribute('disabled', '');
         minutesRef.setAttribute('disabled', '');
     } else {
@@ -16,14 +17,14 @@ const gear = () => {
         secondsRef.removeAttribute('disabled');
         minutesRef.removeAttribute('disabled');
     }
-    gearFlag = !gearFlag;
+    settingsFlag = !settingsFlag;
 }
 
 const startStopControl = () => {
     if (startStopFlag == true) {
         startStopFlag = false;
         startRef.innerHTML = "stop";
-        if (gearFlag == true) gear();
+        if (settingsFlag == true) settings();
         seconds = secondsRef.value;
         minutes = minutesRef.value;
 
@@ -82,5 +83,5 @@ const changeRingColor = () => {
     isRingGreen = !isRingGreen;
 }
 
-document.getElementById("gear").addEventListener("click", gear);
+settingsRef.addEventListener("click", settings);
 startRef.addEventListener("click", startStopControl);
