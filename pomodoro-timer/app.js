@@ -1,28 +1,27 @@
-var gearFlag = false;
-var secondsRef = document.getElementById("seconds");
-var minutesRef = document.getElementById("minutes");
-var startRef = document.getElementById("start");
+// Variable declarations
+let gearFlag = false, startStopFlag = true, isRingGreen = true;
+let interval, seconds, minutes;
+const secondsRef = document.getElementById("seconds");
+const minutesRef = document.getElementById("minutes");
+const startRef = document.getElementById("start");
+const ringRef = document.getElementById("ring");
 
-document.getElementById("gear").addEventListener("click", gear);
-
-function gear() {
+//Functions
+const gear = () => {
     if (gearFlag == true) {
         secondsRef.setAttribute('disabled', '');
         minutesRef.setAttribute('disabled', '');
     } else {
+        if (startStopFlag == false) start();
         secondsRef.removeAttribute('disabled');
         minutesRef.removeAttribute('disabled');
     }
     gearFlag = !gearFlag;
 }
 
-var startFlag = true;
-var interval, seconds, minutes;
-startRef.addEventListener("click", start);
-
-function start() {
-    if (startFlag == true) {
-        startFlag = false;
+const startStopControl = () => {
+    if (startStopFlag == true) {
+        startStopFlag = false;
         startRef.innerHTML = "stop";
         if (gearFlag == true) gear();
         seconds = secondsRef.value;
@@ -31,19 +30,19 @@ function start() {
         if (isValid())
             interval = setInterval(timer, 1000);
         else {
-            start();
+            startStopControl();
             secondsRef.value = '00';
             minutesRef.value = '00';
             alert("Invalid time");
         }
     } else {
-        startFlag = true;
+        startStopFlag = true;
         startRef.innerHTML = "start";
         clearInterval(interval);
     }
 }
 
-function isValid() {
+const isValid = () => {
     let secLength = seconds.length, minLength = minutes.length;
     if (secLength == 0 || minLength == 0 || secLength > 2) return false;
     for (let i = 0; i < secLength; i++) {
@@ -56,7 +55,7 @@ function isValid() {
     return true;
 }
 
-function timer() {
+const timer = () => {
     seconds--;
     if (seconds < 0) {
         minutes--;
@@ -65,14 +64,23 @@ function timer() {
     if (minutes < 0) {
         minutes = 0;
         seconds = 0;
-        document.getElementById("ring").classList.add("ending");
+        changeRingColor();
         setTimeout(function () {
             alert("Time Over");
-            document.getElementById("ring").classList.remove("ending");
+            changeRingColor();
         }, 100);
-        start();
+        startStopControl();
     }
     if (seconds < 10) secondsRef.value = '0' + seconds;
     else secondsRef.value = seconds;
     minutesRef.value = minutes;
 }
+
+const changeRingColor = () => {
+    if (isRingGreen) ringRef.classList.add("ending");
+    else ringRef.classList.remove("ending");
+    isRingGreen = !isRingGreen;
+}
+
+document.getElementById("gear").addEventListener("click", gear);
+startRef.addEventListener("click", startStopControl);
