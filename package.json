@@ -1,0 +1,16 @@
+{
+    "dependencies": {},
+    "devDependencies": {
+        "eslint": "^8.18.0",
+        "husky": "^8.0.0"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npx pretty-quick --staged ng lint ng test",
+            "pre-push": "ng build --aot true"
+        }
+    },
+    "scripts": {
+        "prepare": "husky install"
+    }
+}
