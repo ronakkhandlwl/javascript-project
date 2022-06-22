@@ -1,28 +1,47 @@
-let checkboxes = document.querySelectorAll("input[type='checkbox']");
-let lastChecked = null;
+let checkboxes = document.querySelectorAll('input');
+let index = undefined;
+let lastChecked, lastUnchecked;
+let isChecked = new Array(10).fill(false);
 
-document.onselectstart = new Function('return false');
-
-checkAll = (event) => {
-  if (event.shiftKey && lastChecked) {
-    let lastCheckedIndex = parseInt(lastChecked.slice(8));
-    let curIndex = parseInt(event.target.id.slice(8));
-    let state = event.target.checked;
-
-    if (lastCheckedIndex > curIndex) {
-      let temp = lastCheckedIndex;
-      lastCheckedIndex = curIndex;
-      curIndex = temp;
-    }
-
-    for (let i = lastCheckedIndex; i < curIndex; i++) {
-      checkboxes[i].checked = state;
+const check = (idx) => {
+  if (event.shiftKey) {
+    if (isChecked[idx] == false) {
+      if (lastChecked != undefined) {
+        if (lastChecked > idx) {
+          let temp = idx;
+          idx = lastChecked;
+          lastChecked = temp;
+        }
+        for (let i = lastChecked + 1; i < idx; i++) {
+          isChecked[i] = true;
+          document.getElementById(`episode-${i + 1}`).checked = true;
+        }
+      }
+    } else {
+      if (lastUnchecked != undefined) {
+        if (lastUnchecked > idx) {
+          let temp = idx;
+          idx = lastUnchecked;
+          lastUnchecked = temp;
+        }
+        for (let i = lastUnchecked + 1; i < idx; i++) {
+          isChecked[i] = false;
+          document.getElementById(`episode-${i + 1}`).checked = false;
+        }
+      }
     }
   }
-
-  lastChecked = event.target.id;
+  if (isChecked[idx] == false) {
+    lastChecked = idx;
+  }
+  if (isChecked[idx] == true) {
+    lastUnchecked = idx;
+  }
+  isChecked[idx] = !isChecked[idx];
 };
 
-checkboxes.forEach((elem) => {
-  elem.addEventListener('click', checkAll);
+checkboxes.forEach((element, idx) => {
+  element.addEventListener('click', function () {
+    check(idx);
+  });
 });
