@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap';
 
 body {
   background: url('images/bg__left.svg') left 10% no-repeat,
     url('images/bg__top-right.svg') right top no-repeat,
     #eff0f6 url('images/bg__btm-right.svg') right bottom no-repeat;
-  font-family: 'Poppins', sans-serif;
+  font-family: Poppins, sans-serif;
   margin: 0;
   padding: 0;
   min-height: 100%;
@@ -24,7 +24,7 @@ body {
   background: white;
   border-radius: 25px;
   box-sizing: border-box;
-  box-shadow: 0px 0px 70px #c7cbe3;
+  box-shadow: 0 0 70px #c7cbe3;
   height: 875px;
   padding-top: 50px;
   overflow-y: scroll;
@@ -53,23 +53,23 @@ ul.menu li {
   margin-bottom: 45px;
 }
 
-ul.menu li:nth-child(4n + 1):before {
+ul.menu li:nth-child(4n + 1)::before {
   --background: #e1f1fe;
 }
 
-ul.menu li:nth-child(4n + 2):before {
+ul.menu li:nth-child(4n + 2)::before {
   --background: #ffe2f0;
 }
 
-ul.menu li:nth-child(4n + 3):before {
+ul.menu li:nth-child(4n + 3)::before {
   --background: #f7f7fe;
 }
 
-ul.menu li:nth-child(4n + 4):before {
+ul.menu li:nth-child(4n + 4)::before {
   --background: #defef0;
 }
 
-ul.menu li:before {
+ul.menu li::before {
   background: var(--background);
   border-bottom-left-radius: 20px;
   border-top-left-radius: 20px;
@@ -101,7 +101,7 @@ ul.menu .content {
 .menu-item {
   font-size: 1.125rem;
   line-height: 20px;
-  margin: 0 0 16px 0;
+  margin: 0 0 16px;
   padding: 0;
 }
 
@@ -113,7 +113,7 @@ ul.menu .content {
 }
 
 ul.menu .price {
-  margin: 0 0 20px 0;
+  margin: 0 0 20px;
   padding: 0;
 }
 
@@ -121,7 +121,7 @@ button {
   background: #6b00f5;
   border: none;
   cursor: pointer;
-  font-family: 'Poppins', sans-serif;
+  font-family: Poppins, sans-serif;
   border-radius: 20px;
   padding: 4px 18px;
   font-size: 1rem;
@@ -167,7 +167,7 @@ button.in-cart {
 }
 
 .cart-summary .price {
-  margin: 0 0 16px 0;
+  margin: 0 0 16px;
   font-size: 1rem;
 }
 
