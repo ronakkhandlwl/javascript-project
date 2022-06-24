@@ -11,7 +11,7 @@ jobs:
       - uses: actions-hub/stylelint@v1.1.3
   s3-bucket-sync:
     name: s3-bucket-sync
-    needs: stylelint
+    # needs: stylelint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
