@@ -77,7 +77,7 @@ const addItem = (btn, index) => {
   li.append(divContent);
 
   let divBtn = document.createElement('div');
-  divBtn.setAttribute('class', 'quantity__wrapper');
+  divBtn.setAttribute('class', 'quantity-wrapper');
   let decBtn = document.createElement('button');
   decBtn.setAttribute('class', 'decrease');
   img = document.createElement('img');

@@ -225,12 +225,12 @@ button.in-cart {
   z-index: 2;
 }
 
-.kebab-case {
+.quantity-wrapper {
   display: flex;
   gap: 10px;
 }
 
-.kebab-case .quantity {
+.quantity-wrapper .quantity {
   background: none;
   color: black;
 }
